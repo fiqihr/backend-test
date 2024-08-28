@@ -1,14 +1,14 @@
 <?php
    
 namespace App\Http\Controllers\API;
-   
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\Brand;
 use Validator;
-use App\Http\Resources\ProductResource;
+use App\Http\Resources\BrandResource;
 use Illuminate\Http\JsonResponse;
-   
+
 class ProductController extends BaseController
 {
     /**
@@ -19,6 +19,6 @@ class ProductController extends BaseController
     public function index(): JsonResponse
     {
         $products = Brand::all();
-        return $this->sendResponse(ProductResource::collection($products), 'Brands retrieved successfully.');
+        return $this->sendResponse(BrandResource::collection($products), 'Brands retrieved successfully.');
     }
 }
