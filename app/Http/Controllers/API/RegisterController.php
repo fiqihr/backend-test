@@ -11,34 +11,64 @@ use Illuminate\Http\JsonResponse;
 
 class RegisterController extends BaseController
 {
-
+    // melakukan validasi register
     public function register(Request $request): JsonResponse
     {
+        
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:6',
         ]);
 
+        // jika validasi gagal
         if ($validator->fails()) {
             return $this->sendError('Validation Error.', $validator->errors());
         }
+
         $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-        $success['name'] =  $user->name;
-        return $this->sendResponse($success, 'User register successfully.');
+        $token = $user->createToken('MyApp')->plainTextToken;
+
+        $userDetails = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'registered_at' => $user->created_at->toDateTimeString(), // Format as needed
+        ];
+
+        $result = [
+            'status' => true,
+            'message' => 'User register successfully.',
+            'token' => $token,
+            'user' => $userDetails,
+        ];
+        return response()->json($result, 200);
     }
 
     public function login(Request $request): JsonResponse
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-            $success['name'] =  $user->name;
 
-            return $this->sendResponse($success, 'User login successfully.');
+        $user = Auth::user();
+        $token = $user->createToken('MyApp')->plainTextToken;
+
+        // Format user details
+        $userDetails = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            'registered_at' => $user->created_at->toDateTimeString(), // Format as needed
+        ];
+
+        $result = [
+            'status' => true,
+            'message' => 'Success login account',
+            'token' => $token,
+            'user' => $userDetails,
+        ];
+
+        return response()->json($result, 200);
         } else {
             return $this->sendError('Unauthorised.', ['error' => 'Unauthorised'], 401);
         }
