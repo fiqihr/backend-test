@@ -34,7 +34,7 @@ class RegisterController extends BaseController
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'registered_at' => $user->created_at->toDateTimeString(), // Format as needed
+            'registered_at' => $user->created_at->toDateTimeString(), 
         ];
 
         $result = [
@@ -53,12 +53,11 @@ class RegisterController extends BaseController
         $user = Auth::user();
         $token = $user->createToken('MyApp')->plainTextToken;
 
-        // Format user details
         $userDetails = [
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            'registered_at' => $user->created_at->toDateTimeString(), // Format as needed
+            'registered_at' => $user->created_at->toDateTimeString(), 
         ];
 
         $result = [
@@ -73,4 +72,15 @@ class RegisterController extends BaseController
             return $this->sendError('Unauthorised.', ['error' => 'Unauthorised'], 401);
         }
     }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+        return response()->json([
+            'status' => true,
+            'message' => 'Success logout account'
+        ], 200);
+    }
+    
+
 }
