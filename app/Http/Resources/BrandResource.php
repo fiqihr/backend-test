@@ -16,10 +16,7 @@ class BrandResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'brand_name' => $this->brand_name,
-            'product_active' => $this->product_active,
-            'created_at' => $this->created_at->format('d/m/Y'),
-            'updated_at' => $this->updated_at->format('d/m/Y'),
+            'name' => $this->brand_name,
         ];
     }
 }

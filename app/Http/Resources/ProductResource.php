@@ -21,8 +21,8 @@ class ProductResource extends JsonResource
             'product_price' => $this->product_price,
             'product_stock' => $this->product_stock,
             'product_active' => $this->product_active,
-            'created_at' => $this->created_at->format('d/m/Y'),
-            'updated_at' => $this->updated_at->format('d/m/Y'),
+            'created_at' => $this->created_at ? $this->created_at->format('Y-m-d H:i:s') : null,
+            'created_at' => $this->updated_at ? $this->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 }

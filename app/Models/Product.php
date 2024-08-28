@@ -16,7 +16,7 @@ class Product extends Model
         'product_active',
     ];
 
-    public function brands()
+    public function brand() 
     {
         return $this->belongsTo(Brand::class);
     }
