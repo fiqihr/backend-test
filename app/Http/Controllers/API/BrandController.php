@@ -24,6 +24,7 @@ class BrandController extends BaseController
         return $this->sendResponse(BrandResource::collection($brands), 'Success get brands');
     }
 
+    // post brand
     public function store(Request $request)
     {
         

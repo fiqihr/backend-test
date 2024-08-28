@@ -45,7 +45,8 @@ class RegisterController extends BaseController
         ];
         return response()->json($result, 200);
     }
-
+    
+    // melakukan validasi login
     public function login(Request $request): JsonResponse
     {
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
@@ -73,6 +74,7 @@ class RegisterController extends BaseController
         }
     }
 
+    // untuk fungsi logout, menghapus token
     public function logout()
     {
         auth()->user()->tokens()->delete();

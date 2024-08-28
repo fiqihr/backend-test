@@ -16,6 +16,7 @@ class ProductController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
+    
     // get products
     public function index()
     {
@@ -23,7 +24,7 @@ class ProductController extends BaseController
         return $this->sendResponse(ProductResource::collection($products), 'Success get products');
     }
 
-    // store products
+    // post product
     public function store(Request $request)
     {
         // validasi input dari request

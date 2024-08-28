@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
+    // membuat base response api
     public function sendResponse($result, $message,)
     {
         $response = [
@@ -16,7 +17,8 @@ class BaseController extends Controller
         ];
         return response()->json($response, 200);
     }
-
+    
+    // untuk send error
     public function sendError($error, $errorMessages = [], $code = 404)
     {
         $response = [
